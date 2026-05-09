@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HELLCLIMB Player Guide</title>
+<style>
+:root { color-scheme: dark }
+body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: #0e0e12; color: #f0f0f5; padding: 24px }
+h1 { margin: 0 0 4px; font-size: 28px }
+h3 { margin: 0 0 12px; font-size: 15px; color: #b890ff; text-transform: uppercase; letter-spacing: 2px }
+.sub { color: #8a8aa0; font-size: 13px; margin-bottom: 24px }
+.card { background: #16161e; border-radius: 12px; padding: 20px; margin-bottom: 16px }
+.card-purple { background: #1a1020; border: 1px solid #5a3a7a; border-radius: 12px; padding: 20px; margin-bottom: 16px }
+.card-green { background: #0e1a0e; border: 1px solid #2a5a2a; border-radius: 12px; padding: 20px; margin-bottom: 16px }
+p { color: #c0c0d0; font-size: 14px; line-height: 1.7; margin: 0 0 12px }
+p:last-child { margin: 0 }
+table { width: 100%; border-collapse: collapse }
+td { text-align: left; padding: 8px 12px; border-bottom: 1px solid #22222e; font-size: 14px; color: #c0c0d0 }
+tr:last-child td { border-bottom: none }
+.cmd { color: #ff9944; font-family: monospace; white-space: nowrap }
+.earn { color: #ffcc44; white-space: nowrap }
+.demon { color: #ff4422; white-space: nowrap }
+.bits { color: #44aaff; font-weight: 500; white-space: nowrap }
+.hero { color: #ffcc44; white-space: nowrap }
+.ladder { color: #44ff88; font-family: monospace; font-size: 13px }
+.wall-title { color: #44ff88 }
+</style>
+</head>
+<body>
+
+<h1>📖 HELLCLIMB Player Guide</h1>
+<div class="sub">Everything you need to know to climb to glory — slimjumpy</div>
+
+<div class="card">
+  <h3>🎮 How to Play</h3>
+  <p>HELLCLIMB is a chat-based board game played live on stream. Race your token from square 0 to square 100. Land <strong>EXACTLY</strong> on 100 to become the Champion of HELLCLIMB. Your name will be immortalised on the leaderboard and on the <strong>HELLCLIMB Wall</strong> — a physical board in slimjumpy's room that records every Champion forever. The board is filled with demons, super demons, cursed squares, and ladders. Use your weapons wisely.</p>
+</div>
+
+<div class="card">
+  <h3>⌨️ Player Commands</h3>
+  <table>
+    <tr><td class="cmd">!join</td><td>Enter the game. Start at square 0 and receive your welcome weapons. One-time bonus for all players, extra weapons for Subs and VIPs.</td></tr>
+    <tr><td class="cmd">!roll</td><td>Roll the dice and move forward. 30 second cooldown between rolls. Overshoot 100 and you bounce back.</td></tr>
+    <tr><td class="cmd">!pos</td><td>Check your current square and full weapon inventory.</td></tr>
+    <tr><td class="cmd">!board</td><td>See the current Champion and the top 5 players closest to square 100.</td></tr>
+    <tr><td class="cmd">!weapons</td><td>Full breakdown of all your weapons by type.</td></tr>
+    <tr><td class="cmd">!give @user</td><td>Gift one of your ultimate weapons to another player in the game.</td></tr>
+    <tr><td class="cmd">!pray</td><td>50/50 gamble when you have zero standard weapons. Win = 1 free weapon. Lose = back to square 0. Once per day.</td></tr>
+    <tr><td class="cmd">!catch</td><td>Catch the Beast when it appears in chat. First player to type it wins. Must be joined to catch.</td></tr>
+    <tr><td class="cmd">!leave</td><td>Leave the game. Rejoin anytime with !join.</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h3>⚔️ Weapons</h3>
+  <p>Weapons fire automatically when you land on a demon — no command needed. Weapons carry over between streams and days until used.</p>
+  <table>
+    <tr><td class="earn">🎁 !join bonus</td><td>3 free weapons for joining. One time only.</td></tr>
+    <tr><td class="earn">⭐ Sub / VIP bonus</td><td>+3 extra weapons granted every time you sub or resub. Stacks with join bonus.</td></tr>
+    <tr><td class="earn">💎 Cheer 101 bits</td><td>Exactly 101 bits = 1 standard weapon. No limit on how many you can buy.</td></tr>
+    <tr><td class="earn">🎯 333 channel points</td><td>Redeem the HELLCLIMB Weapon channel point reward for 1 standard weapon.</td></tr>
+    <tr><td class="earn">🗡️ Ultimate weapon</td><td>Earned by cheering exactly 999 bits. Has 20 uses. Kills ALL demons including super demons. Breaks when uses run out. Can be gifted to another player with !give.</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h3>👹 Demons and Hazards</h3>
+  <table>
+    <tr><td class="demon">👹 Standard demon</td><td>Lurks on various squares. Any standard or ultimate weapon defeats it. No weapon = sent back to a lower square.</td></tr>
+    <tr><td class="demon">🔥 Super demon (666)</td><td>Found on squares 60–99. Standard weapons are USELESS. Only a beast or ultimate weapon can defeat it. Sends you back to square 23.</td></tr>
+    <tr><td class="demon">👁️ Creator immunity</td><td>If you placed a super demon yourself you walk past it completely unharmed.</td></tr>
+    <tr><td class="demon">💀 Cursed square</td><td>No weapon can save you. Instant teleport to square 0. Permanent on the board forever.</td></tr>
+    <tr><td class="demon">👹 Tato</td><td>A fixed boss super demon roaming squares 25–75. When defeated he respawns somewhere new. Sends victims to square 19. Only beasts and ultimates stop him.</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h3>💎 Bit Powers</h3>
+  <table>
+    <tr><td class="bits">101 bits</td><td>1 standard weapon added to your inventory.</td></tr>
+    <tr><td class="bits">333 bits</td><td>Name a standard demon on the board. Include the name in your cheer message e.g. <em>Cheer333 DemonName</em>.</td></tr>
+    <tr><td class="bits">666 bits</td><td>Summon and name a super demon on a random square between 60–99. Include the name in your cheer message. Standard weapons cannot defeat it.</td></tr>
+    <tr><td class="bits">999 bits</td><td>Forge an ultimate weapon with 20 uses. Defeats all demons including super demons.</td></tr>
+    <tr><td class="bits">1001 bits</td><td>Place a cursed square at a random position on the board. No weapon can save anyone who lands on it.</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h3>👺 The Beast</h3>
+  <p>Once per stream a wild Beast appears in chat at a random time between 5 minutes and 3 hours after going live. The first player to type <strong>!catch</strong> claims it. A Beast defeats one super demon automatically when you land on it — no ultimate weapon needed. Beasts are used before ultimate weapons in combat.</p>
+</div>
+
+<div class="card">
+  <h3>🪜 Ladders</h3>
+  <p>Land on a ladder square and you climb straight up instantly. No weapon needed, no demon can stop you.</p>
+  <p class="ladder">1→38 &nbsp;&nbsp; 4→14 &nbsp;&nbsp; 9→31 &nbsp;&nbsp; 21→42 &nbsp;&nbsp; 28→84 &nbsp;&nbsp; 36→44 &nbsp;&nbsp; 51→67 &nbsp;&nbsp; 71→91</p>
+</div>
+
+<div class="card-purple">
+  <h3>🏆 Monthly Heroes — Rewards</h3>
+  <p>At the end of each month the top player in each category receives a special reward automatically:</p>
+  <table>
+    <tr><td class="hero">💬 Top Chatter</td><td>Most messages in chat that month. Reward: <strong>1 Beast</strong> — ready to take down a super demon.</td></tr>
+    <tr><td class="hero">🎁 Top Gifter</td><td>Most gifted subs that month. Reward: <strong>1 Ultimate Weapon</strong> with 20 uses.</td></tr>
+    <tr><td class="hero">💎 Top Bits</td><td>Most bits cheered that month. Reward: <strong>1 Ultimate Weapon</strong> with 20 uses.</td></tr>
+  </table>
+</div>
+
+<div class="card-green">
+  <h3 class="wall-title">👑 The HELLCLIMB Wall</h3>
+  <p>Every player who lands exactly on square 100 and becomes Champion of HELLCLIMB earns a permanent place on the <strong>HELLCLIMB Wall</strong> — a physical board in slimjumpy's room that records every Champion forever. Your name. Your date. Your victory. For as long as the wall stands.</p>
+</div>
+
+</body>
+</html>
+
+<div class="card">
+  <h3>❓ Frequently Asked Questions</h3>
+  <table>
+
+    <tr><td style="color:#b890ff;font-weight:500;padding-top:16px" colspan="2">GETTING STARTED</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">Do I need to follow to play?</td>
+    <td>Yes. You must be following slimjumpy's channel to join HELLCLIMB. Subs, VIPs and mods are always welcome.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">I typed !join but nothing happened?</td>
+    <td>Make sure you are following the channel. If you are already in the game it will tell you your current square instead.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">Can I rejoin after leaving?</td>
+    <td>Yes. Type !join again at any time. You will start back at square 0 but any weapons you already had in your inventory will still be waiting for you.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">Is it free to play?</td>
+    <td>Completely free. You get 3 weapons just for joining. Bits and channel points let you get more weapons and special powers but they are never required.</td></tr>
+
+    <tr><td style="color:#b890ff;font-weight:500;padding-top:16px" colspan="2">ROLLING AND MOVEMENT</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">How often can I roll?</td>
+    <td>Once every 30 seconds. If you try too soon the bot will tell you how many seconds are left on your cooldown.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">I rolled past 100 — what happens?</td>
+    <td>You bounce back. For example if you are on square 97 and roll a 6 you land on 97 + 6 = 103, which bounces back to 100 - 3 = 97. You must land exactly on 100 to win.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">What happens when I win?</td>
+    <td>You become the Champion of HELLCLIMB! Your name and the date go on the leaderboard. Your position resets to 0 so you can climb again. Your name is also added to the HELLCLIMB Wall permanently.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">Can I win more than once?</td>
+    <td>Yes. Every time you reach square 100 you become Champion again. Each win is recorded on the Wall separately.</td></tr>
+
+    <tr><td style="color:#b890ff;font-weight:500;padding-top:16px" colspan="2">WEAPONS</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">Do I need to use !weapon or anything to fire a weapon?</td>
+    <td>No. Weapons fire completely automatically the moment you land on a demon. You do not need to type anything.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">Which weapon gets used first?</td>
+    <td>The use order is: Ultimate weapon first, then Redeem weapons, then Bit weapons, then Follower weapons, then Sub weapons. Your most recently earned weapons are always saved for last.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">Do my weapons expire?</td>
+    <td>No. Standard and sub weapons carry over permanently until you use them. Bit and redeem weapons also carry over between days and streams.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">What is the difference between standard and ultimate weapons?</td>
+    <td>Standard weapons defeat regular demons only. Ultimate weapons defeat everything — regular demons AND super demons (666). An ultimate has 20 uses before it breaks permanently.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">Can I give weapons to other players?</td>
+    <td>You can gift ultimate weapons using !give @username. Standard weapons cannot be transferred.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">I have no weapons — what do I do?</td>
+    <td>Type !pray for a free 50/50 chance at 1 weapon. You can also cheer 101 bits, redeem 333 channel points, or wait for a sub gift. The daily safety net also gives you 1 weapon free on your first roll of the day if you have nothing.</td></tr>
+
+    <tr><td style="color:#b890ff;font-weight:500;padding-top:16px" colspan="2">DEMONS AND HAZARDS</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">A demon sent me back — did I lose my weapons?</td>
+    <td>No. You only lose a weapon when one is successfully used to defeat a demon. If you had no weapons and got sent back, your weapon count stays the same (zero).</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">I landed on a super demon and got sent back even though I had weapons?</td>
+    <td>Standard weapons cannot defeat super demons (666). You need either a Beast or an Ultimate Weapon (999 bits). Check !pos to see if you have any ultimates or beasts.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">I placed a super demon — will it hurt me too?</td>
+    <td>No. You have creator immunity. If you land on a super demon you placed yourself you walk past it completely unharmed. No weapon is consumed either.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">What is a cursed square?</td>
+    <td>A cursed square teleports you instantly to square 0 with no way to stop it. No weapon of any kind works. They are placed permanently on the board by cheering exactly 1001 bits.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">Who is Tato?</td>
+    <td>Tato is a permanent super demon boss who starts at a random square between 25 and 75. He cannot be renamed. When defeated by a beast or ultimate weapon he respawns at a new random square. He sends victims to square 19 instead of 23.</td></tr>
+
+    <tr><td style="color:#b890ff;font-weight:500;padding-top:16px" colspan="2">BITS AND CHANNEL POINTS</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">Do I need to be in the game to use bits?</td>
+    <td>For 101 bits (weapon) you must already be joined. For 333, 666, 999 and 1001 bit powers you do not need to be in the game — except 999 bits which requires you to be joined to receive the ultimate weapon.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">I cheered 333 bits — how do I name the demon?</td>
+    <td>Include the name directly in your cheer message. For example type: Cheer333 MyDemonName. If you forget the name it will be called Unnamed Demon.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">Can I cheer 101 bits multiple times?</td>
+    <td>Yes. Every single 101 bit cheer adds 1 weapon. There is no daily or stream limit on bit weapons.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">I redeemed channel points but got no weapon?</td>
+    <td>Make sure you have joined the game with !join first. Also check that the redemption went through in your Twitch channel points history.</td></tr>
+
+    <tr><td style="color:#b890ff;font-weight:500;padding-top:16px" colspan="2">THE BEAST</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">When does the Beast appear?</td>
+    <td>Once per stream at a completely random time between 5 minutes and 3 hours after the stream goes live. Keep an eye on chat!</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">I typed !catch but someone else got it?</td>
+    <td>The Beast goes to the first person who types !catch after the announcement. It is first come first served — be quick!</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">How does the Beast work in combat?</td>
+    <td>When you land on a super demon and you have a beast, it is used automatically before checking your ultimate weapons. One beast defeats one super demon. You can hold multiple beasts.</td></tr>
+
+    <tr><td style="color:#b890ff;font-weight:500;padding-top:16px" colspan="2">MONTHLY HEROES</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">When do monthly rewards get given out?</td>
+    <td>Automatically on the 1st of each month at 3am UTC when the stats reset. The rewards are added to your inventory instantly — you do not need to be online.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">Can the same person win multiple categories?</td>
+    <td>Yes. If you are Top Chatter AND Top Bits in the same month you receive both rewards.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">Does broadcaster chat count towards Top Chatter?</td>
+    <td>No. Broadcaster messages are excluded from chat tracking to keep it fair for everyone.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">Does gifting subs count towards Top Gifter even if the recipients do not play?</td>
+    <td>Yes. All gifted subs count regardless of whether the recipient joins HELLCLIMB.</td></tr>
+
+    <tr><td style="color:#b890ff;font-weight:500;padding-top:16px" colspan="2">OTHER</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">Is HELLCLIMB running right now?</td>
+    <td>If the stream is live HELLCLIMB is active unless the broadcaster has paused it. Check chat for announcements or type !board to see if the leaderboard is populated.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">I think there is a bug — what do I do?</td>
+    <td>Let slimjumpy know in chat. Do not spam commands as this may make things worse. The broadcaster can check your inventory and position directly.</td></tr>
+
+    <tr><td class="cmd" style="white-space:nowrap;vertical-align:top">Will my position be saved if I leave and come back another stream?</td>
+    <td>Yes. Your position, weapons and inventory are all saved permanently between streams. Nothing resets unless the broadcaster runs a full game reset.</td></tr>
+
+  </table>
+</div>
+
