@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horror Nights</title>
+<link href="https://fonts.googleapis.com/css2?family=Creepster&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #ff2d78;
+    --pink-dim: #c4155a;
+    --pink-glow: rgba(255, 45, 120, 0.3);
+    --pink-faint: rgba(255, 45, 120, 0.07);
+    --black: #080808;
+    --dark: #111111;
+    --darker: #0c0c0c;
+    --card: #141414;
+    --border: #242424;
+    --text: #e8e8e8;
+    --text-dim: #888;
+    --text-muted: #444;
+    --indie: #9d7ff5;
+    --indie-dim: #6b4fc8;
+    --indie-faint: rgba(157,127,245,0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    font-family: 'Josefin Sans', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--darker);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--pink), transparent);
+  }
+
+  .brand {
+    font-family: 'Creepster', cursive;
+    font-size: 28px;
+    color: var(--pink);
+    letter-spacing: 3px;
+    text-shadow: 0 0 16px var(--pink-glow);
+  }
+
+  .session-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    background: var(--card);
+  }
+
+  .session-badge.jh {
+    color: var(--pink);
+    border-color: var(--pink-dim);
+    background: var(--pink-faint);
+  }
+
+  .session-badge.ind {
+    color: var(--indie);
+    border-color: var(--indie-dim);
+    background: var(--indie-faint);
+  }
+
+  /* ── LAYOUT ── */
+  .page {
+    display: flex;
+    gap: 0;
+    height: calc(100vh - 61px);
+  }
+
+  /* ── NEXT PLAY SIDEBAR ── */
+  .sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: var(--darker);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 16px 12px;
+    gap: 12px;
+    overflow-y: auto;
+  }
+
+  .sidebar-title {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .next-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .next-card.active-jh {
+    border-color: var(--pink-dim);
+  }
+
+  .next-card.active-jh::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--pink), transparent);
+  }
+
+  .next-card.active-ind {
+    border-color: var(--indie-dim);
+  }
+
+  .next-card.active-ind::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--indie), transparent);
+  }
+
+  .cat-label {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+
+  .cat-label.jh { color: var(--pink); }
+  .cat-label.ind { color: var(--indie); }
+
+  .cat-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 5px currentColor;
+    animation: blink 2s infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes blink {
+    0%,100%{opacity:1} 50%{opacity:.2}
+  }
+
+  .next-game-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 5px;
+  }
+
+  .voted-tag {
+    font-size: 8px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .placeholder {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.5;
+    text-align: center;
+    padding: 4px 0;
+  }
+
+  /* Commands */
+  .cmds {
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+  }
+
+  .cmds-heading {
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .cmd-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 5px;
+  }
+
+  .cmd-tag {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--pink);
+    background: var(--pink-faint);
+    border: 1px solid var(--pink-dim);
+    padding: 1px 6px;
+    white-space: nowrap;
+  }
+
+  .cmd-desc {
+    font-size: 9px;
+    color: var(--text-muted);
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── TABS ── */
+  .tabs-bar {
+    display: flex;
+    background: var(--darker);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .tab-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    border-right: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 12px 8px;
+    cursor: pointer;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .tab-btn:last-child { border-right: none; }
+  .tab-btn:hover { color: var(--text-dim); }
+
+  .tab-btn.active { color: var(--pink); }
+
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 2px;
+    background: var(--pink);
+    box-shadow: 0 0 8px var(--pink-glow);
+  }
+
+  .tab-count {
+    display: inline-block;
+    font-size: 9px;
+    padding: 0 5px;
+    border-radius: 2px;
+    margin-left: 4px;
+    vertical-align: middle;
+    background: var(--border);
+    color: var(--text-muted);
+  }
+
+  .tab-btn.active .tab-count {
+    background: var(--pink-faint);
+    color: var(--pink);
+    border: 1px solid var(--pink-dim);
+  }
+
+  /* ── TAB PANELS ── */
+  .tab-panel {
+    display: none;
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+  }
+
+  .tab-panel.active { display: block; }
+
+  .tab-panel::-webkit-scrollbar { width: 4px; }
+  .tab-panel::-webkit-scrollbar-track { background: var(--darker); }
+  .tab-panel::-webkit-scrollbar-thumb { background: var(--pink-dim); border-radius: 2px; }
+
+  /* ── GAME ROWS ── */
+  .game-row {
+    display: flex;
+    align-items: center;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    margin-bottom: 4px;
+    background: var(--card);
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .game-row:hover {
+    background: #1a1a1a;
+    border-color: #303030;
+  }
+
+  .game-row.next-jh {
+    border-color: var(--pink-dim);
+    background: var(--pink-faint);
+    position: relative;
+  }
+
+  .game-row.next-jh::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--pink);
+    box-shadow: 0 0 6px var(--pink-glow);
+  }
+
+  .game-row.next-ind {
+    border-color: var(--indie-dim);
+    background: var(--indie-faint);
+    position: relative;
+  }
+
+  .game-row.next-ind::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--indie);
+    box-shadow: 0 0 6px rgba(157,127,245,0.4);
+  }
+
+  .g-num {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 700;
+    width: 24px;
+    text-align: right;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  .g-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+    letter-spacing: 0.3px;
+  }
+
+  .game-row.next-jh .g-name { color: var(--pink); }
+  .game-row.next-ind .g-name { color: var(--indie); }
+
+  .next-badge {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border: 1px solid;
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+
+  .next-badge.jh {
+    color: var(--pink);
+    border-color: var(--pink-dim);
+    background: var(--pink-faint);
+  }
+
+  .next-badge.ind {
+    color: var(--indie);
+    border-color: var(--indie-dim);
+    background: var(--indie-faint);
+  }
+
+  /* ── COMPLETED ROWS ── */
+  .completed-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    margin-bottom: 4px;
+    background: var(--card);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .c-rank {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 700;
+    width: 24px;
+    text-align: right;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  .c-info {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .c-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .c-cat {
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .c-cat.jh { color: var(--pink-dim); }
+  .c-cat.ind { color: var(--indie-dim); }
+
+  .c-score-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-shrink: 0;
+    margin-left: 12px;
+  }
+
+  .c-score-val {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--pink);
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+
+  .c-score-val.nr {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+  }
+
+  .c-score-denom { font-size: 9px; color: var(--text-muted); }
+  .c-score-votes { font-size: 9px; color: var(--text-muted); margin-top: 1px; }
+
+  .c-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--border);
+  }
+
+  .c-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink-dim), var(--pink));
+  }
+
+  /* ── EMPTY STATES ── */
+  .empty {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-style: italic;
+    line-height: 2;
+  }
+
+  .empty-icon {
+    font-size: 32px;
+    display: block;
+    margin-bottom: 12px;
+    opacity: 0.3;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="brand">☠ Horror Nights</div>
+  <div class="session-badge" id="sessionBadge">No Active Session</div>
+</header>
+
+<!-- PAGE -->
+<div class="page">
+
+  <!-- SIDEBAR: Next Play -->
+  <div class="sidebar">
+    <div class="sidebar-title">Next Play</div>
+
+    <!-- J-Horror -->
+    <div class="next-card" id="jhCard">
+      <div class="cat-label jh"><span class="cat-dot"></span>J-Horror Night</div>
+      <div class="placeholder" id="jh-ph">No game queued.<br>Open a vote with !jhorror</div>
+      <div class="next-game-name" id="jh-name" style="display:none"></div>
+      <div class="voted-tag" id="jh-voted" style="display:none">✓ Voted by the Community</div>
+    </div>
+
+    <!-- Indie -->
+    <div class="next-card" id="indCard">
+      <div class="cat-label ind"><span class="cat-dot"></span>Indie Night</div>
+      <div class="placeholder" id="ind-ph">No game queued.<br>Open a vote with !indie</div>
+      <div class="next-game-name" id="ind-name" style="display:none"></div>
+      <div class="voted-tag" id="ind-voted" style="display:none">✓ Voted by the Community</div>
+    </div>
+
+    <!-- Commands -->
+    <div class="cmds">
+      <div class="cmds-heading">Chat Commands</div>
+      <div class="cmd-row"><span class="cmd-tag">!vote 1/2</span><span class="cmd-desc">Vote for next game</span></div>
+      <div class="cmd-row"><span class="cmd-tag">!rate 0-10</span><span class="cmd-desc">Rate current game</span></div>
+      <div class="cmd-row"><span class="cmd-tag">!next</span><span class="cmd-desc">See next game</span></div>
+      <div class="cmd-row"><span class="cmd-tag">!suggest</span><span class="cmd-desc">Subs &amp; Mods only</span></div>
+    </div>
+  </div>
+
+  <!-- MAIN: Tabs -->
+  <div class="main">
+    <div class="tabs-bar">
+      <button class="tab-btn active" onclick="switchTab('jhorror')">
+        🎌 J-Horror <span class="tab-count" id="jhCount">20</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('indie')">
+        👾 Indie <span class="tab-count" id="indCount">20</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('completed')">
+        ✓ Completed <span class="tab-count" id="completedCount">0</span>
+      </button>
+    </div>
+
+    <!-- J-Horror List -->
+    <div class="tab-panel active" id="panel-jhorror">
+      <div id="jhList"></div>
+    </div>
+
+    <!-- Indie List -->
+    <div class="tab-panel" id="panel-indie">
+      <div id="indList"></div>
+    </div>
+
+    <!-- Completed -->
+    <div class="tab-panel" id="panel-completed">
+      <div id="completedList"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── DATA ──
+const jhorrorGames = [
+  "The Closing Shift","The Convenience Store","Night Delivery",
+  "Parasocial","The Karaoke","The Bathhouse: Restored Edition",
+  "Stigmatized Property","Okaeri","The Ghost Train","Missing Children",
+  "Jisatsu","Cursed Digicam","Exit 8","Platform 8","Shinkansen 0",
+  "Kyoto Anomaly","Hollow Cocoon","Homicipher","Yuki Onna","The Kidnap"
+];
+
+const indieGames = [
+  "The Cabin Factory","The Floor Above","Mortuary Assistant",
+  "Ten Bells","CAPTURED","MADiSON","Mouthwashing","Fears to Fathom Series",
+  "MiSide","KARMA: The Dark World","Amnesia: The Bunker","Blair Witch",
+  "Layers of Fear 2023","Stay Out of the House","Amnesia: The Dark Descent",
+  "Routine","Hellmart","Slender: The Arrival","Maid of Sker","Escape the Backrooms"
+];
+
+// ── STATE ──
+let state = {
+  jhorror: { unplayed: [...jhorrorGames], nextPlay: null, votedBy: false, archived: [] },
+  indie:   { unplayed: [...indieGames],   nextPlay: null, votedBy: false, archived: [] },
+  completed: [],
+  activeSession: null
+};
+
+// ── TABS ──
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelector(`[onclick="switchTab('${tab}')"]`).classList.add('active');
+  document.getElementById(`panel-${tab}`).classList.add('active');
+}
+
+// ── RENDER ──
+function renderJH() {
+  const el = document.getElementById('jhList');
+  const games = state.jhorror.unplayed;
+  const next = state.jhorror.nextPlay;
+  let html = '';
+  let n = 1;
+
+  if (next) {
+    html += `<div class="game-row next-jh">
+      <div class="g-num">—</div>
+      <div class="g-name">${x(next)}</div>
+      <div class="next-badge jh">Next Up</div>
+    </div>`;
+  }
+
+  if (!games.length && !next) {
+    html = `<div class="empty"><span class="empty-icon">👻</span>All J-Horror games completed!<br>Use !restoregame to restore games.</div>`;
+  } else {
+    games.forEach(g => {
+      html += `<div class="game-row"><div class="g-num">${n++}</div><div class="g-name">${x(g)}</div></div>`;
+    });
+  }
+
+  el.innerHTML = html;
+  document.getElementById('jhCount').textContent = games.length;
+}
+
+function renderInd() {
+  const el = document.getElementById('indList');
+  const games = state.indie.unplayed;
+  const next = state.indie.nextPlay;
+  let html = '';
+  let n = 1;
+
+  if (next) {
+    html += `<div class="game-row next-ind">
+      <div class="g-num">—</div>
+      <div class="g-name">${x(next)}</div>
+      <div class="next-badge ind">Next Up</div>
+    </div>`;
+  }
+
+  if (!games.length && !next) {
+    html = `<div class="empty"><span class="empty-icon">👾</span>All Indie games completed!<br>Use !restoregame to restore games.</div>`;
+  } else {
+    games.forEach(g => {
+      html += `<div class="game-row"><div class="g-num">${n++}</div><div class="g-name">${x(g)}</div></div>`;
+    });
+  }
+
+  el.innerHTML = html;
+  document.getElementById('indCount').textContent = games.length;
+}
+
+function renderCompleted() {
+  const el = document.getElementById('completedList');
+  const sorted = [...state.completed].sort((a,b) => {
+    if (a.score===null && b.score===null) return 0;
+    if (a.score===null) return 1;
+    if (b.score===null) return -1;
+    return b.score - a.score;
+  });
+
+  if (!sorted.length) {
+    el.innerHTML = `<div class="empty"><span class="empty-icon">🎮</span>No completed games yet.<br>Scores appear here after each stream.</div>`;
+    document.getElementById('completedCount').textContent = '0';
+    return;
+  }
+
+  let html = '';
+  sorted.forEach((g, i) => {
+    const has = g.score !== null;
+    const fill = has ? (g.score/10*100) : 0;
+    const cc = g.category === 'jhorror' ? 'jh' : 'ind';
+    const cl = g.category === 'jhorror' ? '🎌 J-Horror' : '👾 Indie';
+    html += `<div class="completed-row">
+      <div class="c-rank">${i+1}</div>
+      <div class="c-info">
+        <div class="c-name">${x(g.name)}</div>
+        <div class="c-cat ${cc}">${cl}</div>
+      </div>
+      <div class="c-score-block">
+        ${has
+          ? `<div class="c-score-val">${g.score.toFixed(1)}</div>
+             <div class="c-score-denom">/10</div>
+             <div class="c-score-votes">${g.votes} votes</div>`
+          : `<div class="c-score-val nr">N/R</div>`}
+      </div>
+      ${has ? `<div class="c-bar"><div class="c-bar-fill" style="width:${fill}%"></div></div>` : ''}
+    </div>`;
+  });
+
+  el.innerHTML = html;
+  document.getElementById('completedCount').textContent = sorted.length;
+}
+
+function renderNextPlay() {
+  const jg = state.jhorror.nextPlay;
+  document.getElementById('jhCard').className = 'next-card' + (jg ? ' active-jh' : '');
+  document.getElementById('jh-ph').style.display = jg ? 'none' : 'block';
+  document.getElementById('jh-name').style.display = jg ? 'block' : 'none';
+  document.getElementById('jh-voted').style.display = (jg && state.jhorror.votedBy) ? 'block' : 'none';
+  if (jg) document.getElementById('jh-name').textContent = jg;
+
+  const ig = state.indie.nextPlay;
+  document.getElementById('indCard').className = 'next-card' + (ig ? ' active-ind' : '');
+  document.getElementById('ind-ph').style.display = ig ? 'none' : 'block';
+  document.getElementById('ind-name').style.display = ig ? 'block' : 'none';
+  document.getElementById('ind-voted').style.display = (ig && state.indie.votedBy) ? 'block' : 'none';
+  if (ig) document.getElementById('ind-name').textContent = ig;
+}
+
+function renderSession() {
+  const el = document.getElementById('sessionBadge');
+  if (state.activeSession === 'jhorror') {
+    el.textContent = '🎌 J-Horror Night';
+    el.className = 'session-badge jh';
+  } else if (state.activeSession === 'indie') {
+    el.textContent = '👾 Indie Night';
+    el.className = 'session-badge ind';
+  } else {
+    el.textContent = 'No Active Session';
+    el.className = 'session-badge';
+  }
+}
+
+function renderAll() {
+  renderJH();
+  renderInd();
+  renderCompleted();
+  renderNextPlay();
+  renderSession();
+}
+
+// ── STREAMERBOT API ──
+window.setSession    = s => { state.activeSession = s; renderSession(); };
+window.setNextPlay   = (cat, name, voted) => {
+  state[cat].nextPlay = name;
+  state[cat].votedBy = voted !== false;
+  state[cat].unplayed = state[cat].unplayed.filter(g => g !== name);
+  renderAll();
+};
+window.completeGame  = (cat, name, score, votes) => {
+  if (state[cat].nextPlay === name) { state[cat].nextPlay = null; state[cat].votedBy = false; }
+  state.completed.push({ name, category: cat, score, votes: votes||0 });
+  renderAll();
+};
+window.removeGame    = (cat, name) => {
+  state[cat].archived.push(name);
+  state[cat].unplayed = state[cat].unplayed.filter(g => g !== name);
+  if (state[cat].nextPlay === name) { state[cat].nextPlay = null; state[cat].votedBy = false; }
+  renderAll();
+};
+window.restoreGame   = (cat, name) => {
+  state[cat].archived = state[cat].archived.filter(g => g !== name);
+  if (!state[cat].unplayed.includes(name)) state[cat].unplayed.push(name);
+  renderAll();
+};
+window.changeGame    = (cat, name) => {
+  const old = state[cat].nextPlay;
+  if (old) state[cat].unplayed.push(old);
+  state[cat].nextPlay = name;
+  state[cat].votedBy = false;
+  state[cat].unplayed = state[cat].unplayed.filter(g => g !== name);
+  renderAll();
+};
+
+window.resetAll = () => {
+  // Rebuild full unplayed lists from originals + archived + completed
+  const jhAll = [...new Set([
+    ...jhorrorGames,
+    ...state.jhorror.archived,
+    ...state.completed.filter(g => g.category === 'jhorror').map(g => g.name)
+  ])];
+  const indAll = [...new Set([
+    ...indieGames,
+    ...state.indie.archived,
+    ...state.completed.filter(g => g.category === 'indie').map(g => g.name)
+  ])];
+
+  state.jhorror = { unplayed: jhAll, nextPlay: null, votedBy: false, archived: [] };
+  state.indie   = { unplayed: indAll, nextPlay: null, votedBy: false, archived: [] };
+  state.completed = [];
+  state.activeSession = null;
+  renderAll();
+};
+
+// ── UTILITY ──
+function x(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── DEMO — uncomment to preview ──
+/*
+state.activeSession = 'jhorror';
+state.jhorror.nextPlay = 'The Closing Shift';
+state.jhorror.votedBy = true;
+state.jhorror.unplayed = state.jhorror.unplayed.filter(g => g !== 'The Closing Shift');
+state.indie.nextPlay = 'Mortuary Assistant';
+state.indie.votedBy = true;
+state.indie.unplayed = state.indie.unplayed.filter(g => g !== 'Mortuary Assistant');
+state.completed = [
+  { name: 'The Convenience Store', category: 'jhorror', score: 8.4, votes: 31 },
+  { name: 'The Cabin Factory',     category: 'indie',   score: 9.1, votes: 44 },
+  { name: 'Night Delivery',        category: 'jhorror', score: 7.2, votes: 18 },
+  { name: 'MADiSON',               category: 'indie',   score: null, votes: 0  },
+];
+*/
+
+renderAll();
+</script>
+</body>
+</html>
